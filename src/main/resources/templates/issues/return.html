@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Return Book - BookTrack Library</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+  <div class="container py-5">
+    <header class="mb-4">
+      <h2>Return Book Confirmation</h2>
+    </header>
+
+    <!-- Display flash error message (redirected scenario) -->
+    <div th:if="${errorMessage}" class="alert alert-danger" th:text="${errorMessage}"></div>
+
+    <!-- Display confirmation form if 'issue' is present -->
+    <div th:if="${issue != null}" class="card p-4 mx-auto" style="max-width: 600px;">
+      <p>
+        Are you sure you want to return the book:
+        <strong th:text="${issue.book.title}">Book Title</strong>
+        issued to student:
+        <strong th:text="${issue.student.name}">Student Name</strong>?
+      </p>
+
+      <form th:action="@{/issues/return/{id}(id=${issue.id})}" method="post">
+        <div class="d-flex gap-2">
+          <button type="submit" class="btn btn-warning flex-grow-1">Confirm Return</button>
+          <a href="/issues" class="btn btn-secondary flex-grow-1">Cancel</a>
+        </div>
+      </form>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
